@@ -1,0 +1,12 @@
+<?php
+
+echo <<<EOF
+    <html>
+        <head>
+        
+        </head>
+        <body>
+            Hello there!
+        </body>
+    </html>
+EOF;
