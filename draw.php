@@ -3,8 +3,21 @@
 $x = intval($_REQUEST['x']);
 $y = intval($_REQUEST['y']);
 
-if ($_REQUEST['submit']) {
-    print_r($_REQUEST);
+if (isset($_REQUEST['submit']) && $_REQUEST['submit']) {
+    $data = $_POST['data'];
+    $data = json_encode($data);
+
+    $key = "$x,$y";
+    $filename = './tmp/' . $key;
+    file_put_contents($filename, $data);
+    
+    $result = shell_exec("node save.js $x $y");
+    
+    if ($result) {
+        die('Error saving!');
+    }
+    print '<script>window.location="index.php"</script>';
+    
     return;
 }
 

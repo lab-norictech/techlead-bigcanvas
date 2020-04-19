@@ -14,6 +14,24 @@ $(document).ready(() => {
     CANVAS.attr('width', WIDTH)
     CANVAS.attr('height', HEIGHT)
 
+    // firebase
+    var firebaseConfig = {
+      apiKey: "AIzaSyCHDW1hiVXE8WtsVZ4aSL0YDzmFCF_fUOE",
+      authDomain: "bigcanvas-ef0e6.firebaseapp.com",
+      databaseURL: "https://bigcanvas-ef0e6.firebaseio.com",
+      projectId: "bigcanvas-ef0e6",
+      storageBucket: "bigcanvas-ef0e6.appspot.com",
+      messagingSenderId: "834044913599",
+      appId: "1:834044913599:web:c2ff3465374e081720e30a",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    let db = firebase.firestore()
+
+    db.collection('app').doc('grid').onSnapshot((doc) => {
+        console.log(doc)
+    })
+
     CTX.strokeStyle = 'rgba(0, 0, 0, 0.25)'
     for (let i = 0; i < DIMENSION * REPEATSX; ++i) {
         if (i % DIMENSION) { continue }
