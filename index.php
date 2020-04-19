@@ -7,19 +7,8 @@ print <<<EOF
     <html>
         <head>
             <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
-            <script>
-                var firebaseConfig = {
-                    apiKey: "AIzaSyCHDW1hiVXE8WtsVZ4aSL0YDzmFCF_fUOE",
-                    authDomain: "bigcanvas-ef0e6.firebaseapp.com",
-                    databaseURL: "https://bigcanvas-ef0e6.firebaseio.com",
-                    projectId: "bigcanvas-ef0e6",
-                    storageBucket: "bigcanvas-ef0e6.appspot.com",
-                    messagingSenderId: "834044913599",
-                    appId: "1:834044913599:web:c2ff3465374e081720e30a"
-                };
-                firebase.initializeApp(firebaseConfig);
-            </script>
-            
+            <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+        
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
             <script src="index.js?version=$time"></script>
 

@@ -15,7 +15,7 @@ $(document).ready(() => {
     CANVAS.attr('height', HEIGHT)
 
     // firebase
-    var firebaseConfig = {
+    let firebaseConfig = {
       apiKey: "AIzaSyCHDW1hiVXE8WtsVZ4aSL0YDzmFCF_fUOE",
       authDomain: "bigcanvas-ef0e6.firebaseapp.com",
       databaseURL: "https://bigcanvas-ef0e6.firebaseio.com",
@@ -29,8 +29,32 @@ $(document).ready(() => {
     let db = firebase.firestore()
 
     db.collection('app').doc('grid').onSnapshot((doc) => {
-        console.log(doc)
+        let data = doc.data()
+        for (let key in data) {
+            let coord = key.split(',')
+            let json = JSON.stringify(data[key])
+            let pixelData = JSON.parse(json)
+            for (let subkey in pixelData) {
+                let subcoord = subkey.split(',')
+                let color = pixelData[subkey]
+
+                fillPixel(coord, subcoord, color)
+            }
+        }
     })
+
+    const fillPixel = (coord, subcoord, color) => {
+        let coordX = parseInt(coord[0])
+        let coordY = parseInt(coord[1])
+        let subCoordX = parseInt(subcoord[0])
+        let subCoordY = parseInt(subcoord[1])
+
+        CTX.fillStyle = color
+        let x = (coordX * DIMENSION + subCoordX) * PIXELSIZE
+        let y = (coordY * DIMENSION + subCoordY) * PIXELSIZE;
+
+        CTX.fillRect(x, y, PIXELSIZE, PIXELSIZE)
+    }
 
     CTX.strokeStyle = 'rgba(0, 0, 0, 0.25)'
     for (let i = 0; i < DIMENSION * REPEATSX; ++i) {
