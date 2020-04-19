@@ -7,6 +7,7 @@ $(document).ready(function() {
     let PIXELSIZE = WIDTH / DIMENSION
     let COLOR = '#000'
     let ENABLED = true
+    let FILLED = {}
 
     CTX.strokeStyle = 'rgba(0, 0, 0, 0.1)'
 
@@ -38,6 +39,9 @@ $(document).ready(function() {
     }
 
     const fillPixel = (pixel) => {
+        let key = pixel[0]+','+pixel[1]
+        FILLED[key] = COLOR
+
         CTX.fillStyle = COLOR
         CTX.fillRect(pixel[0] * PIXELSIZE, pixel[1] * PIXELSIZE, PIXELSIZE - 1, PIXELSIZE - 1)
     }
@@ -86,4 +90,16 @@ $(document).ready(function() {
         }, 300)
     })
     PICKR.on('change', () => COLOR = PICKR.getColor().toHEXA().toString())
+
+    window.save = function(x, y) {
+        let data = {}
+
+        data['x'] = x
+        data['y'] = y
+        data['data'] = FILLED
+
+        $.post('draw.php?submit=1', data, function(rsp) {
+            $('body').append(rsp)
+        })
+    }
 })
